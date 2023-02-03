@@ -172,71 +172,65 @@ void Press()
     system("cls");
 }
 
-
-int main()
-{
-    int n = 0;
-    char choose;
-    int option;
-    SV *sv;
-    sv = new SV[n];
-    do
-    {
-        Menu();
-        cout <<"Moi ban nhap lua chon: ";
-        cin >> option;
-        switch ( option)
-        {
-            case 1: // Add a form
-                NhapSL(n);
-                NhapSV(sv, n);
-                Press();
-                break;
-            case 2:
-                XuatSV(sv, n);
-                Press();
-                break;
-            case 3:
-                ThemSV(sv, n);
-                Press();
-                break;
-            case 4:
-                XoaSV(sv, n);
-                Press();
-                break;
-            case 5:
-                InMax(sv, n);
-                Press();
-                break;
-            case 6:
-                InMin(sv, n);
-                Press();
-                break;
-            case 7:
-                TimKiem(sv, n);
-                Press();
-                break;
-            case 8: 
-                SapXepMSSV(sv, n);
-                Press();
-                break;
-            case 9:
-                SapxepTen(sv, n);
-                Press();
-                break;
-        default:
-            cout <<"Ban da nhap sai lua chon!"<<endl;
-            Press();
-            break;
+int option;
+    /* EXHIBITION AREA MANAGEMENT SYSTEM  */
+    while (true) {
+        cout << endl;
+        printMenu();
+        cin >> option;  // User input wrong data
+        if (!cin) {
+            // user didn't input a number
+            cin.clear();                      // reset failbit
+            cin.ignore(MAX_STREAMSIZE, '\n'); // skip bad input
         }
-        
-        cout <<"Ban co muon lua chon tiep khong(y/n): ";
-        cin >>chon;
-        if(chon == 'n')
-            cout <<"Tam biet ban\n";
-    } while (chon =='y'||chon == 'Y');
-    
-    delete[] sv;
-    return 0;
-}
 
+        switch (option) {
+            case 1: // Add a booth
+                inputFormList(List);
+                break;
+
+            case 2: // Edit a booth
+                editFormList(List);
+                break;
+
+            case 3: // Remove a booth 
+                removeFormList(List);
+                break;
+
+            case 4: // List of current rental booths 
+                searchFormList(List);
+                break;
+                
+            case 5: // Search booth by code and display full information
+                listCompletedFileByTime(List);
+                break;
+            
+            case 6: // Revenue by time
+                updatePrice();
+                
+                break;
+
+            case 7: //Update price
+                printRevenue(List);
+                break;
+
+            case 8: // Print specific form
+                printSpecificForm(List);
+                break;
+
+            case 9: // Print all forms
+                printFormList(List);
+                break;
+
+            case 10: // Exit program
+                List.FormList.clear();
+                exit(1);
+                break;
+
+            default:
+                cout << "This feature is currently not available\n";   
+                break;
+        }
+    }
+    
+}
